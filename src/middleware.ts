@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { getSupabaseAuthCookieOptions } from "@/utils/supabase/authCookies";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
             value: cookie.value,
           }));
         },
-        setAll(cookies) {
+        setAll(cookies: { name: string; value: string; options: CookieOptions }[]) {
           cookies.forEach(({ name, value, options }) => {
             response.cookies.set({
               name,
